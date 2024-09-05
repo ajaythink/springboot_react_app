@@ -8,6 +8,8 @@ import com.springboot_react_app.springboot_react_app.service.StudentServies;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,11 +27,23 @@ public class Student_Controller {
   @Autowired
   private StudentServies studentservies;
 
-  @PostMapping(value = "/save")
-  private String saveStudent(@RequestBody Student students) {
-    studentservies.saveorUpdate(students);
-    return students.getId();
+  @PostMapping("/save")
+  public ResponseEntity<?> saveStudent(@RequestBody Student students) {
+    try {
+      studentservies.saveorUpdate(students);
+      return new ResponseEntity<>(students.getId(), HttpStatus.OK);
+    } catch (Exception e) {
+      // Log error for better debugging
+      e.printStackTrace();
+      return new ResponseEntity<>("Error saving student", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
+
+  // @PostMapping(value = "/save")
+  // private String saveStudent(@RequestBody Student students) {
+  // studentservies.saveorUpdate(students);
+  // return students.getId();
+  // }
 
   @GetMapping(value = "/getall")
   private List<Student> getAllStudents() {
