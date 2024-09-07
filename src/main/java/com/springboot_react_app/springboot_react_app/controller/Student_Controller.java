@@ -33,9 +33,9 @@ public class Student_Controller {
       studentservies.saveorUpdate(students);
       return new ResponseEntity<>(students.getId(), HttpStatus.OK);
     } catch (Exception e) {
-      // Log error for better debugging
-      e.printStackTrace();
-      return new ResponseEntity<>("Error saving student", HttpStatus.INTERNAL_SERVER_ERROR);
+      // Log the error for better debugging
+      e.printStackTrace(); // Print the full stack trace in the console
+      return new ResponseEntity<>("Error saving student: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
