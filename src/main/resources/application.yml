@@ -1,0 +1,5 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://ajaynice:p5NDm3cPfXRELRkz@firstcluster.5om5u.mongodb.net/
+      database: MyName
